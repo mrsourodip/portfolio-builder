@@ -110,7 +110,7 @@ router.post('/', async (req, res) => {
     // Add dynamic data.json
     const finalData = {
       ...portfolioData,
-      resumeUrl: resumeFilename ? `/${resumeFilename}` : null
+      resumeUrl: resumeFilename ? `./${resumeFilename}` : null
     };
     
     const { data: dataBlob } = await octokit.rest.git.createBlob({

@@ -236,7 +236,7 @@ export default function App() {
                 {/* Download Button (Always Visible) */}
                 <div>
                   <a
-                    href={data.resumeUrl || (data.name ? `/${data.name.trim().split(/\s+/).map((s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).join("_")}_Resume.docx` : `/Resume.docx`)}
+                    href={data.resumeUrl || (data.name ? `./${data.name.trim().split(/\s+/).map((s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).join("_")}_Resume.docx` : `./Resume.docx`)}
                     target="_blank"
                     rel="noopener noreferrer"
                     download={data.resumeUrl ? data.resumeUrl.split('/').pop() : `Resume.docx`}

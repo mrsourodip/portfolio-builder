@@ -119,7 +119,7 @@ async function getTransformedAppCode() {
     // We replace the entire href/download block to be cleaner and fix implicit any
     const resumeLinkPattern = /href=\{resumeUrl \? `http:\/\/localhost:3005\$\{resumeUrl\}` : ['"]\/resume\.pdf['"]\}\s*target=['"]_blank['"]\s*rel=['"]noopener noreferrer['"]\s*download=\{\(\(\) => \{[\s\S]*?\}\)\(\)\}/g;
     
-    const newResumeLink = `href={data.resumeUrl || (data.name ? \`/\${data.name.trim().split(/\\s+/).map((s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).join("_")}_Resume.${resumeExtension}\` : \`/Resume.${resumeExtension}\`)}
+    const newResumeLink = `href={data.resumeUrl || (data.name ? \`./\${data.name.trim().split(/\\s+/).map((s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).join("_")}_Resume.${resumeExtension}\` : \`./Resume.${resumeExtension}\`)}
                     target="_blank"
                     rel="noopener noreferrer"
                     download={data.resumeUrl ? data.resumeUrl.split('/').pop() : \`Resume.${resumeExtension}\`}`;
