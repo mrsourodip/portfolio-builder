@@ -117,7 +117,8 @@ async function getTransformedAppCode() {
     // 6. Fix resume URL & Naming
     // Format: FirstName_LastName_Resume.ext (Capitalized)
     // We replace the entire href/download block to be cleaner and fix implicit any
-    const resumeLinkPattern = /href=\{resumeUrl \? `http:\/\/localhost:3005\$\{resumeUrl\}` : ['"]\/resume\.pdf['"]\}\s*target=['"]_blank['"]\s*rel=['"]noopener noreferrer['"]\s*download=\{\(\(\) => \{[\s\S]*?\}\)\(\)\}/g;
+    // Using a broader regex to catch changes within the href like `process.env` dynamic routing
+    const resumeLinkPattern = /href=\{resumeUrl \? [\s\S]*?\}\)\(\)\}/g;
     
     const newResumeLink = `href={data.resumeUrl || (data.name ? \`./\${data.name.trim().split(/\\s+/).map((s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).join("_")}_Resume.${resumeExtension}\` : \`./Resume.${resumeExtension}\`)}
                     target="_blank"
