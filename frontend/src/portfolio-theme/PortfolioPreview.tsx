@@ -206,8 +206,8 @@ export default function PortfolioPreview() {
                         }}
                       >
                         <span className={`mr-4 h-px transition-all group-hover:w-16 group-hover:bg-slate-200 group-focus-visible:w-16 group-focus-visible:bg-slate-200 ${activeSection === item.href.slice(1)
-                            ? 'w-16 bg-slate-200'
-                            : 'w-8 bg-slate-600'
+                          ? 'w-16 bg-slate-200'
+                          : 'w-8 bg-slate-600'
                           }`} />
                         <span className={`text-xs font-bold uppercase tracking-widest group-hover:text-slate-200 group-focus-visible:text-slate-200 ${activeSection === item.href.slice(1) ? 'text-slate-200' : 'text-slate-500'
                           }`}>
@@ -385,7 +385,7 @@ export default function PortfolioPreview() {
             )}
             <footer className="mt-20 pb-8 text-center text-sm text-slate-500">
               <p>
-                Made with <a href="#" target="_blank" rel="noreferrer" className="text-teal-400 hover:text-teal-300 transition-colors">Portfolio Builder</a> - Try now!
+                Made with <a href="https://github.com/mrsourodip/portfolio-builder#" target="_blank" rel="noreferrer" className="text-teal-400 hover:text-teal-300 transition-colors">Portfolio Builder</a> - Try now!
                 {/* TODO: Update github URL to the launched repository link */}
               </p>
             </footer>

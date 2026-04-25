@@ -442,7 +442,7 @@ export default function App() {
             )}
             <footer className="mt-20 pb-8 text-center text-sm text-slate-500">
               <p>
-                Made with <a href="#" target="_blank" rel="noreferrer" className="text-teal-400 hover:text-teal-300 transition-colors">Portfolio Builder</a> - Try now!
+                Made with <a href="https://github.com/mrsourodip/portfolio-builder#" target="_blank" rel="noreferrer" className="text-teal-400 hover:text-teal-300 transition-colors">Portfolio Builder</a> - Try now!
                 {/* TODO: Update github URL to the launched repository link */}
               </p>
             </footer>
