@@ -1,0 +1,11 @@
+node_modules
+**/node_modules
+.git
+
+frontend/.next
+frontend/out
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+.env
+.DS_Store

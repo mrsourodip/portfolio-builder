@@ -283,6 +283,9 @@ export default function EditorSidebar() {
     setExpandedCert(prev => { const s = new Set(prev); s.has(i) ? s.delete(i) : s.add(i); return s; });
   };
 
+  // Dynamically resolve API URL for production vs local dev
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3005';
+
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
     const file = e.target.files[0];
@@ -290,7 +293,7 @@ export default function EditorSidebar() {
     const formData = new FormData();
     formData.append("resume", file);
     try {
-      const res = await fetch("http://localhost:3005/api/upload", { method: "POST", body: formData });
+      const res = await fetch(`${API_BASE_URL}/api/upload`, { method: "POST", body: formData });
       const parsedData = await res.json();
       if (res.ok) {
         setData(parsedData.data);
@@ -309,7 +312,7 @@ export default function EditorSidebar() {
 
   const downloadZip = async () => {
     setIsExporting(true);
-    const exportPromise = fetch("http://localhost:3005/api/export", {
+    const exportPromise = fetch(`${API_BASE_URL}/api/export`, {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ portfolioData: data })
     }).then(async (res) => {
@@ -332,7 +335,7 @@ export default function EditorSidebar() {
     if (!githubToken || !repoName) return toast.error("Please enter token and repo name.");
     setIsDeploying(true); setDeployStatus('idle');
     
-    const deployPromise = fetch("http://localhost:3005/api/deploy", {
+    const deployPromise = fetch(`${API_BASE_URL}/api/deploy`, {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ portfolioData: data, githubToken, repoName })
     }).then(async (res) => {
@@ -364,7 +367,7 @@ export default function EditorSidebar() {
        toast.error("Please enter some text to improve first.");
        return;
     }
-    const promise = fetch("http://localhost:3005/api/improve", {
+    const promise = fetch(`${API_BASE_URL}/api/improve`, {
        method: "POST",
        headers: { "Content-Type": "application/json" },
        body: JSON.stringify({ type, text })
