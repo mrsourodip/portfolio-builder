@@ -33,3 +33,11 @@ The backend core of the Portfolio Builder, responsible for document processing, 
 1. Install dependencies: `npm install`
 2. Configure `.env`: Needs `GEMINI_API_KEY` and optional GitHub credentials.
 3. Start server: `npm run dev` (Runs on port 3005).
+
+## Running via Docker Monorepo
+
+When deployed via Docker, the backend `server.js` serves a dual purpose:
+1. It hosts all `/api` endpoints.
+2. It statically serves the compiled frontend (`../frontend/out`) directly on port `3005`.
+
+This unified approach prevents path-resolution failures when `syncTemplate` attempts to parse the frontend's UI code for portfolio generation.

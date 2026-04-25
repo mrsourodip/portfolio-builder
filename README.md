@@ -50,17 +50,28 @@ cd ../frontend
 npm install
 ```
 
-### 4. Run the application
+### 4. Run the application locally (Standard Development)
+
 Run the backend (from the `backend` directory):
 ```bash
 npm run dev
 ```
 
-Run the frontend (from the `frontend` directory):
+Run the frontend (from the `frontend` directory) in a separate terminal:
 ```bash
 npm run dev
 ```
 Open `http://localhost:3000` in your browser.
+
+### 5. Run locally via Docker (Production Simulation)
+
+Since the frontend and backend are bundled into a single unit via an optimized multi-stage build, you can run the entire monolithic application easily with Docker:
+
+```bash
+docker build -t portfolio-builder .
+docker run -p 3005:3005 -e GEMINI_API_KEY="your_api_key_here" portfolio-builder
+```
+Open `http://localhost:3005` in your browser.
 
 ## Deployment & GitHub Token
 
@@ -80,6 +91,17 @@ Generate a token with the following repository permissions:
 - **Pages**: Read and Write (to configure hosting)
 - **Workflows**: Read and Write (to set up the CI/CD pipeline)
 
-## Local Development Note
+## Hosting & Self-Hosted Infrastructure
 
-When running locally, the builder communicates with the backend on port 3005. Ensure no other service is occupying this port.
+The codebase is built specifically for **Docker Monorepo Deployment**. 
+
+Instead of hosting the frontend and backend separately (which breaks the server's ability to read and compile local `PortfolioPreview.tsx` files), the application uses a multi-stage Docker build. The Express backend serves the statically compiled Next.js application natively on port `3005`.
+
+**To deploy to Render, Railway, or DigitalOcean:**
+1. Connect your repository.
+2. Select Docker as the deployment setting (most platforms detect the `Dockerfile` automatically).
+3. Set the environment variables (`GEMINI_API_KEY`, `NODE_ENV=production`).
+4. Build and deploy.
+
+## Local Development Note
+When running local instances *without* Docker, the builder communicates natively with the backend on port `3005` and the frontend runs on `3000`. Ensure neither port is overlapping with another local service.

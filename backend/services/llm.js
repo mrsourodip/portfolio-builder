@@ -106,11 +106,13 @@ async function parseResumeToJSON(rawText) {
         }
       });
       break; // Success!
-    } catch (err) {
+      } catch (err) {
       if (err.status === 503 && retries > 1) {
         console.log(`Model high demand (503). Retries left: ${retries - 1}. Waiting 5 seconds...`);
         await new Promise(r => setTimeout(r, 5000));
         retries--;
+      } else if (err.status === 429) {
+        throw new Error("AI capacity limit reached (Free Tier). Please wait 30 seconds and try again.");
       } else {
         throw err;
       }

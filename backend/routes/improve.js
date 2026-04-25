@@ -39,6 +39,8 @@ router.post('/', async (req, res) => {
         if (err.status === 503 && retries > 1) {
           await new Promise(r => setTimeout(r, 3000));
           retries--;
+        } else if (err.status === 429) {
+          throw new Error("AI capacity limit reached (Free Tier). Please wait 30 seconds and try again.");
         } else {
           throw err;
         }

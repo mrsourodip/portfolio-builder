@@ -33,8 +33,14 @@ The user-facing interface for the Portfolio Builder, designed for high-performan
 - **Drag & Drop**: @dnd-kit
 - **Notifications**: react-hot-toast
 
-## Running Locally
+## Running Locally (Development)
 
 1. Install dependencies: `npm install`
 2. Start development server: `npm run dev` (Runs on port 3000).
 3. Ensure the backend is running on port 3005 for API requests to resolve.
+
+## Building for Docker (Production)
+
+When deploying to a Docker Monorepo, the Next.js server behaves differently:
+1. `npm run build` is executed within the Dockerfile to produce a pure static export (`/out` directory).
+2. The Express server in the backend handles all traffic, natively serving the static files. No Next.js Node server runs in production.
