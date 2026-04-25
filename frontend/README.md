@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Frontend Editor
 
-## Getting Started
+The user-facing interface for the Portfolio Builder, designed for high-performance editing and real-time visualization.
 
-First, run the development server:
+## Core Responsibilities
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **State Management**: Centralized store for portfolio data using Zustand.
+2. **Real-time Preview**: Instant visual feedback of all content and layout changes.
+3. **Drafting Tools**: AI-assisted writing and drag-and-drop section reordering.
+4. **Export Interface**: Management of the deployment and ZIP generation workflow.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## The Editorial Flow
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. Data Hydration (Upload)
+- When a user uploads a resume, the frontend sends the file to the backend's `/api/upload` endpoint.
+- Upon success, the `portfolioStore` is hydrated with the AI-parsed JSON.
+- The UI instantly updates to reflect the new data.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. Live Changes & Validation
+- **Instant Sync**: Every keystroke in the `EditorSidebar` updates the global store.
+- **Visual Validation**: The `PortfolioPreview` component is reactive to the store; changes in experience descriptions, skills, or project links are rendered immediately.
+- **Layout Control**: Uses `@dnd-kit` to allow users to physically reorder their professional experience and project history.
 
-## Learn More
+### 3. Finalization (Deploy/Export)
+- **Deployment**: The `EditorSidebar` opens a deployment modal to collect GitHub credentials. It communicates with the backend to initiate the repository creation process.
+- **Exporting**: Sends the current state of the global store to the backend to generate a clean, production-ready ZIP archive.
 
-To learn more about Next.js, take a look at the following resources:
+## Technical Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Framework**: Next.js 15 (App Router)
+- **Styling**: Tailwind CSS
+- **State**: Zustand
+- **Drag & Drop**: @dnd-kit
+- **Notifications**: react-hot-toast
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Running Locally
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Install dependencies: `npm install`
+2. Start development server: `npm run dev` (Runs on port 3000).
+3. Ensure the backend is running on port 3005 for API requests to resolve.
