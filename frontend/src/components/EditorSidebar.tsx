@@ -283,8 +283,8 @@ export default function EditorSidebar() {
     setExpandedCert(prev => { const s = new Set(prev); s.has(i) ? s.delete(i) : s.add(i); return s; });
   };
 
-  // Dynamically resolve API URL for production vs local dev
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3005';
+  // Dynamically resolve API URL: blank string in production uses relative path (Render native domain)
+  const API_BASE_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3005';
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;

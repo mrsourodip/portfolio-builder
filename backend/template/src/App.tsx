@@ -60,6 +60,7 @@ const MobileMenuDropdown = ({ isOpen, closeMenu, activeSection, navItems }: { is
 export default function App() {
   const [data, setData] = useState<any>({});
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     fetch('./data.json')
       .then(res => res.json())
@@ -236,10 +237,10 @@ export default function App() {
                 {/* Download Button (Always Visible) */}
                 <div>
                   <a
-                    href={data.resumeUrl || (data.name ? `./${data.name.trim().split(/\s+/).map((s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).join("_")}_Resume.docx` : `./Resume.docx`)}
+                    href={data.resumeUrl || (data.name ? `./${data.name.trim().split(/\s+/).map((s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).join("_")}_Resume.pdf` : `./Resume.pdf`)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    download={data.resumeUrl ? data.resumeUrl.split('/').pop() : `Resume.docx`}
+                    download={data.resumeUrl ? data.resumeUrl.split('/').pop() : `Resume.pdf`}
                     className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-teal-300 transition-colors group"
                   >
                     <Download className="w-5 h-5" />
@@ -263,8 +264,8 @@ export default function App() {
                         }}
                       >
                         <span className={`mr-4 h-px transition-all group-hover:w-16 group-hover:bg-slate-200 group-focus-visible:w-16 group-focus-visible:bg-slate-200 ${activeSection === item.href.slice(1)
-                            ? 'w-16 bg-slate-200'
-                            : 'w-8 bg-slate-600'
+                          ? 'w-16 bg-slate-200'
+                          : 'w-8 bg-slate-600'
                           }`} />
                         <span className={`text-xs font-bold uppercase tracking-widest group-hover:text-slate-200 group-focus-visible:text-slate-200 ${activeSection === item.href.slice(1) ? 'text-slate-200' : 'text-slate-500'
                           }`}>

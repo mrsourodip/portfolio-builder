@@ -175,7 +175,7 @@ export default function PortfolioPreview() {
                 {/* Download Button (Always Visible) */}
                 <div>
                   <a
-                    href={resumeUrl ? `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3005'}${resumeUrl}` : '/resume.pdf'}
+                    href={resumeUrl ? `${process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3005'}${resumeUrl}` : '/resume.pdf'}
                     target="_blank"
                     rel="noopener noreferrer"
                     download={(() => {
