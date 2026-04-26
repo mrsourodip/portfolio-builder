@@ -130,7 +130,7 @@ export default function PortfolioPreview() {
         <div className="@2xl:flex @2xl:justify-between @2xl:gap-4">
 
           {/* Left Column - Sticky */}
-          <header className="@2xl:sticky @2xl:top-0 @2xl:flex @2xl:max-h-screen @2xl:w-1/2 @2xl:flex-col @2xl:justify-between @2xl:py-24 pb-12 @2xl:pb-24">
+          <header className="@2xl:sticky @2xl:top-0 @2xl:flex @2xl:max-h-screen @2xl:overflow-y-auto @2xl:w-1/2 @2xl:flex-col @2xl:justify-between @2xl:py-24 pb-12 @2xl:pb-24 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <div>
               <h1 className="text-4xl font-bold tracking-tight text-slate-200 @2xl:text-5xl">
                 {data.name || "Your Name"}

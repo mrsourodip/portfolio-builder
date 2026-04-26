@@ -53,8 +53,8 @@ function SortableExpCard({ id, index, exp, expandedExp, toggleExp, updateExperie
           <button {...attributes} {...listeners} className="p-2 cursor-grab active:cursor-grabbing text-slate-500 hover:text-slate-300 touch-none">
              <GripVertical className="w-4 h-4" />
           </button>
-          <div role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && toggleExp(index)} onClick={() => toggleExp(index)} className="flex-1 flex items-center justify-between p-2 pl-0 text-left hover:bg-slate-800/50 transition-colors cursor-pointer outline-none focus:bg-slate-800/50">
-            <div className="flex items-center gap-2 truncate">
+          <div role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && toggleExp(index)} onClick={() => toggleExp(index)} className="flex-1 flex items-center justify-between p-2 pl-0 text-left hover:bg-slate-800/50 transition-colors cursor-pointer outline-none focus:bg-slate-800/50 min-w-0">
+            <div className="flex items-center gap-2 flex-1 min-w-0 mr-2">
               <span className="text-sm text-slate-300 truncate">{exp.role || exp.company || `Experience ${index + 1}`}</span>
               {exp.source && (
                 <span className={`shrink-0 text-[10px] px-1.5 py-0.5 rounded font-medium ${
@@ -65,7 +65,7 @@ function SortableExpCard({ id, index, exp, expandedExp, toggleExp, updateExperie
                 </span>
               )}
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 shrink-0">
               <button disabled={isDragging} onClick={(e) => { e.stopPropagation(); removeExperience(index); }} className="text-slate-600 hover:text-red-400 transition-colors z-10 relative">
                 <Trash2 className="w-3.5 h-3.5" />
               </button>
@@ -147,8 +147,8 @@ function SortableCertCard({ id, index, cert, expandedCert, toggleCert, updateCer
           <button {...attributes} {...listeners} className="p-2 cursor-grab active:cursor-grabbing text-slate-500 hover:text-slate-300 touch-none">
              <GripVertical className="w-4 h-4" />
           </button>
-          <div role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && toggleCert(index)} onClick={() => toggleCert(index)} className="flex-1 flex items-center justify-between p-2 pl-0 text-left hover:bg-slate-800/50 transition-colors cursor-pointer outline-none focus:bg-slate-800/50">
-            <div className="flex items-center gap-2 truncate">
+          <div role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && toggleCert(index)} onClick={() => toggleCert(index)} className="flex-1 flex items-center justify-between p-2 pl-0 text-left hover:bg-slate-800/50 transition-colors cursor-pointer outline-none focus:bg-slate-800/50 min-w-0">
+            <div className="flex items-center gap-2 flex-1 min-w-0 mr-2">
               <span className="text-sm text-slate-300 truncate">{cert.title || `Certification ${index + 1}`}</span>
               {cert.source && (
                 <span className={`shrink-0 text-[10px] px-1.5 py-0.5 rounded font-medium ${
@@ -159,7 +159,7 @@ function SortableCertCard({ id, index, cert, expandedCert, toggleCert, updateCer
                 </span>
               )}
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 shrink-0">
               <button disabled={isDragging} onClick={(e) => { e.stopPropagation(); removeCertification(index); }} className="text-slate-600 hover:text-red-400 transition-colors z-10 relative">
                 <Trash2 className="w-3.5 h-3.5" />
               </button>
@@ -189,8 +189,8 @@ function SortableProjCard({ id, index, proj, expandedProj, toggleProj, updatePro
           <button {...attributes} {...listeners} className="p-2 cursor-grab active:cursor-grabbing text-slate-500 hover:text-slate-300 touch-none">
              <GripVertical className="w-4 h-4" />
           </button>
-          <div role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && toggleProj(index)} onClick={() => toggleProj(index)} className="flex-1 flex items-center justify-between p-2 pl-0 text-left hover:bg-slate-800/50 transition-colors cursor-pointer outline-none focus:bg-slate-800/50">
-            <div className="flex items-center gap-2 truncate">
+          <div role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && toggleProj(index)} onClick={() => toggleProj(index)} className="flex-1 flex items-center justify-between p-2 pl-0 text-left hover:bg-slate-800/50 transition-colors cursor-pointer outline-none focus:bg-slate-800/50 min-w-0">
+            <div className="flex items-center gap-2 flex-1 min-w-0 mr-2">
               <span className="text-sm text-slate-300 truncate">{proj.title || `Project ${index + 1}`}</span>
               {proj.source && (
                 <span className={`shrink-0 text-[10px] px-1.5 py-0.5 rounded font-medium ${
@@ -203,7 +203,7 @@ function SortableProjCard({ id, index, proj, expandedProj, toggleProj, updatePro
                 </span>
               )}
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 shrink-0">
               <button disabled={isDragging} onClick={(e) => { e.stopPropagation(); removeProject(index); }} className="text-slate-600 hover:text-red-400 transition-colors z-10 relative">
                 <Trash2 className="w-3.5 h-3.5" />
               </button>
