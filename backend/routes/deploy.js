@@ -204,38 +204,62 @@ jobs:
 
     // Get current commit
     const defaultBranch = repo.default_branch || 'main';
-    const { data: ref } = await octokit.rest.git.getRef({
-      owner: user.login,
-      repo: repo.name,
-      ref: `heads/${defaultBranch}`
-    });
+    let currentCommitSha = null;
+    let isRepoEmpty = false;
 
-    const currentCommitSha = ref.object.sha;
+    try {
+      const { data: ref } = await octokit.rest.git.getRef({
+        owner: user.login,
+        repo: repo.name,
+        ref: `heads/${defaultBranch}`
+      });
+      currentCommitSha = ref.object.sha;
+    } catch (e) {
+      if (e.status === 409 || e.status === 404) {
+        // 409 means "Git Repository is empty", 404 means the branch doesn't exist
+        isRepoEmpty = true;
+      } else {
+        throw e;
+      }
+    }
 
     // Create tree
-    const { data: newTree } = await octokit.rest.git.createTree({
+    const treeParams = {
       owner: user.login,
       repo: repo.name,
-      tree: tree,
-      base_tree: currentCommitSha
-    });
+      tree: tree
+    };
+    if (currentCommitSha) {
+      treeParams.base_tree = currentCommitSha;
+    }
+    const { data: newTree } = await octokit.rest.git.createTree(treeParams);
 
     // Create commit
-    const { data: newCommit } = await octokit.rest.git.createCommit({
+    const commitParams = {
       owner: user.login,
       repo: repo.name,
-      message: 'Update portfolio',
+      message: currentCommitSha ? 'Update portfolio' : 'Initial portfolio commit',
       tree: newTree.sha,
-      parents: [currentCommitSha]
-    });
+      parents: currentCommitSha ? [currentCommitSha] : []
+    };
+    const { data: newCommit } = await octokit.rest.git.createCommit(commitParams);
 
-    // Update ref
-    await octokit.rest.git.updateRef({
-      owner: user.login,
-      repo: repo.name,
-      ref: `heads/${defaultBranch}`,
-      sha: newCommit.sha
-    });
+    // Update or Create ref
+    if (isRepoEmpty) {
+      await octokit.rest.git.createRef({
+        owner: user.login,
+        repo: repo.name,
+        ref: `refs/heads/${defaultBranch}`,
+        sha: newCommit.sha
+      });
+    } else {
+      await octokit.rest.git.updateRef({
+        owner: user.login,
+        repo: repo.name,
+        ref: `heads/${defaultBranch}`,
+        sha: newCommit.sha
+      });
+    }
 
     // 4. Enable/Update GitHub Pages to use "GitHub Actions" source
     // Note: We do this from the backend because GITHUB_TOKEN in the Action cannot enable Pages.

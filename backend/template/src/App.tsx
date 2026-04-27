@@ -204,7 +204,7 @@ export default function App() {
               <div className="mt-8 flex flex-col gap-6">
                 {/* Contact Icons */}
                 <ul className="flex items-center gap-5" aria-label="Social media">
-                  {data.contact?.github && (
+                  {data.contact?.github && data.contact.github.trim() !== '' && (
                     <li className="text-xs shrink-0">
                       <a className="block hover:text-slate-200 transition-colors" href={data.contact.github.startsWith('http') ? data.contact.github : `https://${data.contact.github}`} target="_blank" rel="noreferrer" title="GitHub">
                         <span className="sr-only">GitHub</span>
@@ -212,7 +212,7 @@ export default function App() {
                       </a>
                     </li>
                   )}
-                  {data.contact?.linkedin && (
+                  {data.contact?.linkedin && data.contact.linkedin.trim() !== '' && (
                     <li className="text-xs shrink-0">
                       <a className="block hover:text-slate-200 transition-colors" href={data.contact.linkedin.startsWith('http') ? data.contact.linkedin : `https://${data.contact.linkedin}`} target="_blank" rel="noreferrer" title="LinkedIn">
                         <span className="sr-only">LinkedIn</span>
@@ -220,7 +220,7 @@ export default function App() {
                       </a>
                     </li>
                   )}
-                  {data.contact?.email && (
+                  {data.contact?.email && data.contact.email.trim() !== '' && (
                     <li className="text-xs shrink-0">
                       <a className="block hover:text-slate-200 transition-colors" href={`mailto:${data.contact.email}`} title="Email">
                         <span className="sr-only">Email</span>
@@ -228,7 +228,7 @@ export default function App() {
                       </a>
                     </li>
                   )}
-                  {data.contact?.portfolio && (
+                  {data.contact?.portfolio && data.contact.portfolio.trim() !== '' && (
                     <li className="text-xs shrink-0">
                       <a className="block hover:text-slate-200 transition-colors" href={data.contact.portfolio.startsWith('http') ? data.contact.portfolio : `https://${data.contact.portfolio}`} target="_blank" rel="noreferrer" title="Portfolio / Website">
                         <span className="sr-only">Portfolio</span>
