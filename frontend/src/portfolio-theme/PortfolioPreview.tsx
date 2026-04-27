@@ -132,7 +132,7 @@ export default function PortfolioPreview() {
           {/* Left Column - Sticky */}
           <header className="@2xl:sticky @2xl:top-0 @2xl:flex @2xl:max-h-screen @2xl:overflow-y-auto @2xl:w-1/2 @2xl:flex-col @2xl:justify-between @2xl:py-24 pb-12 @2xl:pb-24 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <div>
-              <h1 className="text-4xl font-bold tracking-tight text-slate-200 @2xl:text-5xl">
+              <h1 className="text-4xl font-bold tracking-tight text-slate-200 @2xl:text-5xl break-words">
                 {data.name || "Your Name"}
               </h1>
               <h2 className="mt-3 text-lg font-medium tracking-tight text-slate-200 @2xl:text-xl">
@@ -227,7 +227,7 @@ export default function PortfolioPreview() {
             {/* About Section */}
             <section id="about" className="mb-16 scroll-mt-16 @2xl:mb-24 @2xl:mb-36 @2xl:scroll-mt-24">
               <div className="sticky top-0 z-20 -mx-6 mb-4 bg-slate-900/75 px-6 py-5 backdrop-blur @2xl:-mx-12 @2xl:px-12 flex justify-between items-center">
-                <h2 className="text-sm font-bold uppercase tracking-widest text-slate-200">About</h2>
+                <h2 className="text-xl font-bold uppercase tracking-widest text-slate-200">About</h2>
                 <div className={`@2xl:hidden transition-opacity duration-300 ${hasScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                   <MobileMenuButton isOpen={isMobileMenuOpen && activeSection === 'about'} toggle={() => { setIsMobileMenuOpen(!isMobileMenuOpen); setActiveSection('about'); }} />
                   <MobileMenuDropdown isOpen={isMobileMenuOpen && activeSection === 'about'} closeMenu={() => setIsMobileMenuOpen(false)} activeSection={activeSection} navItems={navItems} />
@@ -235,7 +235,7 @@ export default function PortfolioPreview() {
               </div>
               <div className="space-y-4">
                 {(data.about || data.summary || "").split('\n').filter(Boolean).map((para: string, i: number) => (
-                  <p key={i} className="text-sm leading-relaxed">{para}</p>
+                  <p key={i} className="text-base leading-relaxed">{para}</p>
                 ))}
                 {data.skills && data.skills.length > 0 && (
                   <div className="flex flex-wrap gap-2 mt-6">
@@ -252,7 +252,7 @@ export default function PortfolioPreview() {
             {/* Experience Section */}
             <section id="experience" className="mb-16 scroll-mt-16 @2xl:mb-24 @2xl:mb-36 @2xl:scroll-mt-24">
               <div className="sticky top-0 z-20 -mx-6 mb-4 bg-slate-900/75 px-6 py-5 backdrop-blur @2xl:-mx-12 @2xl:px-12 flex justify-between items-center">
-                <h2 className="text-sm font-bold uppercase tracking-widest text-slate-200">Experience</h2>
+                <h2 className="text-xl font-bold uppercase tracking-widest text-slate-200">Experience</h2>
                 <div className={`@2xl:hidden transition-opacity duration-300 ${hasScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                   <MobileMenuButton isOpen={isMobileMenuOpen && activeSection === 'experience'} toggle={() => { setIsMobileMenuOpen(!isMobileMenuOpen); setActiveSection('experience'); }} />
                   <MobileMenuDropdown isOpen={isMobileMenuOpen && activeSection === 'experience'} closeMenu={() => setIsMobileMenuOpen(false)} activeSection={activeSection} navItems={navItems} />
@@ -268,14 +268,14 @@ export default function PortfolioPreview() {
                           {exp.date}
                         </header>
                         <div className="z-10 @2xl:col-span-6">
-                          <h3 className="font-medium leading-snug text-slate-200">
+                          <h3 className="font-medium leading-snug text-slate-200 text-lg">
                             <span>{exp.role}</span>
                             <span className="text-slate-400"> · </span>
                             <span>{exp.company}</span>
                           </h3>
                           <ul className="mt-2 space-y-1">
                             {(Array.isArray(exp.description) ? exp.description : [exp.description]).map((point: string, pi: number) => (
-                              <li key={pi} className="text-sm leading-normal flex gap-2">
+                              <li key={pi} className="text-base leading-normal flex gap-2">
                                 <span className="text-slate-600 mt-0.5 shrink-0">▹</span>
                                 <span>{point}</span>
                               </li>
@@ -287,14 +287,14 @@ export default function PortfolioPreview() {
                   ))}
                 </ol>
               ) : (
-                <p className="text-sm text-slate-500 italic">No experience data yet. Upload a resume or add experience manually.</p>
+                <p className="text-base text-slate-500 italic">No experience data yet. Upload a resume or add experience manually.</p>
               )}
             </section>
 
             {/* Projects Section */}
             <section id="projects" className="mb-16 scroll-mt-16 @2xl:mb-24 @2xl:mb-36 @2xl:scroll-mt-24">
               <div className="sticky top-0 z-20 -mx-6 mb-4 bg-slate-900/75 px-6 py-5 backdrop-blur @2xl:-mx-12 @2xl:px-12 flex justify-between items-center">
-                <h2 className="text-sm font-bold uppercase tracking-widest text-slate-200">Projects</h2>
+                <h2 className="text-xl font-bold uppercase tracking-widest text-slate-200">Projects</h2>
                 <div className={`@2xl:hidden transition-opacity duration-300 ${hasScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                   <MobileMenuButton isOpen={isMobileMenuOpen && activeSection === 'projects'} toggle={() => { setIsMobileMenuOpen(!isMobileMenuOpen); setActiveSection('projects'); }} />
                   <MobileMenuDropdown isOpen={isMobileMenuOpen && activeSection === 'projects'} closeMenu={() => setIsMobileMenuOpen(false)} activeSection={activeSection} navItems={navItems} />
@@ -308,16 +308,16 @@ export default function PortfolioPreview() {
                         <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none @2xl:-inset-x-6 @2xl:block @2xl:group-hover:bg-slate-800/50 @2xl:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] @2xl:group-hover:drop-shadow-lg"></div>
 
                         <div className="z-10">
-                          <h3 className="font-medium leading-snug text-slate-200">
+                          <h3 className="font-medium leading-snug text-slate-200 text-lg">
                             {proj.link ? (
-                              <a href={proj.link} target="_blank" rel="noreferrer" className="inline-flex items-baseline font-medium leading-tight text-slate-200 hover:text-teal-300 focus-visible:text-teal-300 group/link text-base">
+                              <a href={proj.link} target="_blank" rel="noreferrer" className="inline-flex items-baseline font-medium leading-tight text-slate-200 hover:text-teal-300 focus-visible:text-teal-300 group/link text-lg">
                                 <span>{proj.title}{' '}<span className="inline-block transition-transform group-hover/link:-translate-y-1 group-hover/link:translate-x-1">↗</span></span>
                               </a>
                             ) : (
                               <span>{proj.title}</span>
                             )}
                           </h3>
-                          <p className="mt-2 text-sm leading-normal">
+                          <p className="mt-2 text-base leading-normal">
                             {proj.description}
                           </p>
                           {proj.tech && proj.tech.length > 0 && (
@@ -337,7 +337,7 @@ export default function PortfolioPreview() {
                   ))}
                 </ul>
               ) : (
-                <p className="text-sm text-slate-500 italic">No projects yet. Upload a resume or add projects manually.</p>
+                <p className="text-base text-slate-500 italic">No projects yet. Upload a resume or add projects manually.</p>
               )}
             </section>
 
@@ -345,7 +345,7 @@ export default function PortfolioPreview() {
             {data.certifications && data.certifications.length > 0 && (
               <section id="certifications" className="mb-16 scroll-mt-16 @2xl:mb-24 @2xl:mb-36 @2xl:scroll-mt-24">
                 <div className="sticky top-0 z-20 -mx-6 mb-4 bg-slate-900/75 px-6 py-5 backdrop-blur @2xl:-mx-12 @2xl:px-12 flex justify-between items-center">
-                  <h2 className="text-sm font-bold uppercase tracking-widest text-slate-200">Certifications</h2>
+                  <h2 className="text-xl font-bold uppercase tracking-widest text-slate-200">Certifications</h2>
                   <div className={`@2xl:hidden transition-opacity duration-300 ${hasScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                     <MobileMenuButton isOpen={isMobileMenuOpen && activeSection === 'certifications'} toggle={() => { setIsMobileMenuOpen(!isMobileMenuOpen); setActiveSection('certifications'); }} />
                     <MobileMenuDropdown isOpen={isMobileMenuOpen && activeSection === 'certifications'} closeMenu={() => setIsMobileMenuOpen(false)} activeSection={activeSection} navItems={navItems} />
@@ -363,16 +363,16 @@ export default function PortfolioPreview() {
                             </header>
                           )}
                           <div className="flex-1">
-                            <h3 className="font-medium leading-snug text-slate-200">
+                            <h3 className="font-medium leading-snug text-slate-200 text-lg">
                               {cert.link ? (
-                                <a href={cert.link} target="_blank" rel="noreferrer" className="inline-flex items-baseline font-medium leading-tight text-slate-200 hover:text-teal-300 focus-visible:text-teal-300 group/link text-base">
+                                <a href={cert.link} target="_blank" rel="noreferrer" className="inline-flex items-baseline font-medium leading-tight text-slate-200 hover:text-teal-300 focus-visible:text-teal-300 group/link text-lg">
                                   <span>{cert.title}{' '}<span className="inline-block transition-transform group-hover/link:-translate-y-1 group-hover/link:translate-x-1">↗</span></span>
                                 </a>
                               ) : (
                                 <span>{cert.title}</span>
                               )}
                             </h3>
-                            <p className="mt-1 text-sm text-slate-400 font-medium">
+                            <p className="mt-1 text-base text-slate-400 font-medium">
                               {cert.issuer}
                             </p>
                           </div>

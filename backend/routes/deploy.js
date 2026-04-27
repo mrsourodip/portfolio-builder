@@ -30,13 +30,27 @@ router.post('/', async (req, res) => {
     // 1. Get User
     const { data: user } = await octokit.rest.users.getAuthenticated();
     
-    // 2. Create Repo
-    const { data: repo } = await octokit.rest.repos.createForAuthenticatedUser({
-      name: repoName,
-      description: 'My Backend Portfolio created with AI Portfolio Generator',
-      private: false,
-      auto_init: true
-    });
+    // 2. Create or Get Repo
+    let repo;
+    try {
+      const { data: existingRepo } = await octokit.rest.repos.get({
+        owner: user.login,
+        repo: repoName
+      });
+      repo = existingRepo;
+    } catch (e) {
+      if (e.status === 404) {
+        const { data: newRepo } = await octokit.rest.repos.createForAuthenticatedUser({
+          name: repoName,
+          description: 'My Backend Portfolio created with AI Portfolio Generator',
+          private: false,
+          auto_init: true
+        });
+        repo = newRepo;
+      } else {
+        throw e;
+      }
+    }
 
     // 3. Prepare blobs for all files in template
     const templateDir = path.join(__dirname, '../template');
@@ -189,10 +203,11 @@ jobs:
     });
 
     // Get current commit
+    const defaultBranch = repo.default_branch || 'main';
     const { data: ref } = await octokit.rest.git.getRef({
       owner: user.login,
       repo: repo.name,
-      ref: 'heads/main'
+      ref: `heads/${defaultBranch}`
     });
 
     const currentCommitSha = ref.object.sha;
@@ -209,7 +224,7 @@ jobs:
     const { data: newCommit } = await octokit.rest.git.createCommit({
       owner: user.login,
       repo: repo.name,
-      message: 'Initial portfolio commit',
+      message: 'Update portfolio',
       tree: newTree.sha,
       parents: [currentCommitSha]
     });
@@ -218,7 +233,7 @@ jobs:
     await octokit.rest.git.updateRef({
       owner: user.login,
       repo: repo.name,
-      ref: 'heads/main',
+      ref: `heads/${defaultBranch}`,
       sha: newCommit.sha
     });
 

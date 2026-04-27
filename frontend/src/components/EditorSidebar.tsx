@@ -333,7 +333,7 @@ export default function EditorSidebar() {
 
   const handleDeploy = async () => {
     if (!githubToken || !repoName) return toast.error("Please enter token and repo name.");
-    setIsDeploying(true); setDeployStatus('idle');
+    setIsDeploying(true);
     
     const deployPromise = fetch(`${API_BASE_URL}/api/deploy`, {
       method: "POST", headers: { "Content-Type": "application/json" },
@@ -663,12 +663,21 @@ export default function EditorSidebar() {
                     </div>
                     <p className="text-[11px] text-slate-500 leading-relaxed">GitHub Pages may take 1–2 minutes to build. If the site isn't ready yet, refresh shortly.</p>
                   </div>
-                  <button
-                    onClick={() => window.open(deployUrl, '_blank')}
-                    className="w-full font-semibold py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition-all shadow-lg shadow-emerald-900/20"
-                  >
-                    Visit Live Site
-                  </button>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => window.open(deployUrl, '_blank')}
+                      className="flex-1 font-semibold py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition-all shadow-lg shadow-emerald-900/20 text-sm"
+                    >
+                      Visit Live Site
+                    </button>
+                    <button
+                      onClick={handleDeploy}
+                      disabled={isDeploying}
+                      className="flex-1 font-semibold py-2.5 rounded-lg bg-teal-600 hover:bg-teal-500 text-white transition-all shadow-lg shadow-teal-900/20 text-sm flex justify-center items-center gap-2"
+                    >
+                      {isDeploying ? <><Loader2 className="w-4 h-4 animate-spin" /> Deploying...</> : <><Sparkles className="w-4 h-4" /> Redeploy</>}
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <button 
