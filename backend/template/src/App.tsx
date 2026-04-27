@@ -16,6 +16,14 @@ const LinkedinIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+const GlobeIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="10"></circle>
+    <line x1="2" y1="12" x2="22" y2="12"></line>
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+  </svg>
+);
+
 const MobileMenuButton = ({ isOpen, toggle }: { isOpen: boolean; toggle: () => void }) => (
   <button
     onClick={toggle}
@@ -76,7 +84,6 @@ export default function App() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [activeSection, setActiveSection] = useState('about');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(false);
 
   const navItems = [
     { label: 'About', href: '#about' },
@@ -110,16 +117,6 @@ export default function App() {
     sections.forEach((section) => observer.observe(section));
     return () => sections.forEach((section) => observer.unobserve(section));
   }, [data]);
-
-  useEffect(() => {
-    const sentinel = document.getElementById('top-scroll-sentinel');
-    if (!sentinel) return;
-    const sentinelObserver = new IntersectionObserver(([entry]) => {
-      setHasScrolled(!entry.isIntersecting);
-    }, { rootMargin: '0px' });
-    sentinelObserver.observe(sentinel);
-    return () => sentinelObserver.disconnect();
-  }, []);
 
   useEffect(() => {
     if (!data.name) return;
@@ -177,7 +174,6 @@ export default function App() {
       className="@container bg-slate-900 min-h-full text-slate-400 font-sans leading-relaxed selection:bg-teal-300 selection:text-teal-900 relative w-full h-full"
       onMouseMove={handleMouseMove}
     >
-      <div id="top-scroll-sentinel" className="absolute top-[150px] w-full h-1 pointer-events-none opacity-0" />
       {/* Glowing orb that follows cursor */}
       <div
         className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300 @2xl:block hidden hidden-on-touch"
@@ -232,6 +228,14 @@ export default function App() {
                       </a>
                     </li>
                   )}
+                  {data.contact?.portfolio && (
+                    <li className="text-xs shrink-0">
+                      <a className="block hover:text-slate-200 transition-colors" href={data.contact.portfolio.startsWith('http') ? data.contact.portfolio : `https://${data.contact.portfolio}`} target="_blank" rel="noreferrer" title="Portfolio / Website">
+                        <span className="sr-only">Portfolio</span>
+                        <GlobeIcon className="h-6 w-6" />
+                      </a>
+                    </li>
+                  )}
                 </ul>
 
                 {/* Download Button (Always Visible) */}
@@ -280,13 +284,13 @@ export default function App() {
           </header>
 
           {/* Right Column - Scrolling Content */}
-          <main className="pt-24 @2xl:w-1/2 @2xl:py-24">
+          <main className="pt-8 @2xl:w-1/2 @2xl:py-24">
 
             {/* About Section */}
             <section id="about" className="mb-16 scroll-mt-16 @2xl:mb-24 @2xl:mb-36 @2xl:scroll-mt-24">
               <div className="sticky top-0 z-20 -mx-6 mb-4 bg-slate-900/75 px-6 py-5 backdrop-blur @2xl:-mx-12 @2xl:px-12 flex justify-between items-center">
                 <h2 className="text-xl font-bold uppercase tracking-widest text-slate-200">About</h2>
-                <div className={`@2xl:hidden transition-opacity duration-300 ${hasScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                <div className="@2xl:hidden">
                   <MobileMenuButton isOpen={isMobileMenuOpen && activeSection === 'about'} toggle={() => { setIsMobileMenuOpen(!isMobileMenuOpen); setActiveSection('about'); }} />
                   <MobileMenuDropdown isOpen={isMobileMenuOpen && activeSection === 'about'} closeMenu={() => setIsMobileMenuOpen(false)} activeSection={activeSection} navItems={navItems} />
                 </div>
@@ -311,7 +315,7 @@ export default function App() {
             <section id="experience" className="mb-16 scroll-mt-16 @2xl:mb-24 @2xl:mb-36 @2xl:scroll-mt-24">
               <div className="sticky top-0 z-20 -mx-6 mb-4 bg-slate-900/75 px-6 py-5 backdrop-blur @2xl:-mx-12 @2xl:px-12 flex justify-between items-center">
                 <h2 className="text-xl font-bold uppercase tracking-widest text-slate-200">Experience</h2>
-                <div className={`@2xl:hidden transition-opacity duration-300 ${hasScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                <div className="@2xl:hidden">
                   <MobileMenuButton isOpen={isMobileMenuOpen && activeSection === 'experience'} toggle={() => { setIsMobileMenuOpen(!isMobileMenuOpen); setActiveSection('experience'); }} />
                   <MobileMenuDropdown isOpen={isMobileMenuOpen && activeSection === 'experience'} closeMenu={() => setIsMobileMenuOpen(false)} activeSection={activeSection} navItems={navItems} />
                 </div>
@@ -353,7 +357,7 @@ export default function App() {
             <section id="projects" className="mb-16 scroll-mt-16 @2xl:mb-24 @2xl:mb-36 @2xl:scroll-mt-24">
               <div className="sticky top-0 z-20 -mx-6 mb-4 bg-slate-900/75 px-6 py-5 backdrop-blur @2xl:-mx-12 @2xl:px-12 flex justify-between items-center">
                 <h2 className="text-xl font-bold uppercase tracking-widest text-slate-200">Projects</h2>
-                <div className={`@2xl:hidden transition-opacity duration-300 ${hasScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                <div className="@2xl:hidden">
                   <MobileMenuButton isOpen={isMobileMenuOpen && activeSection === 'projects'} toggle={() => { setIsMobileMenuOpen(!isMobileMenuOpen); setActiveSection('projects'); }} />
                   <MobileMenuDropdown isOpen={isMobileMenuOpen && activeSection === 'projects'} closeMenu={() => setIsMobileMenuOpen(false)} activeSection={activeSection} navItems={navItems} />
                 </div>
@@ -404,7 +408,7 @@ export default function App() {
               <section id="certifications" className="mb-16 scroll-mt-16 @2xl:mb-24 @2xl:mb-36 @2xl:scroll-mt-24">
                 <div className="sticky top-0 z-20 -mx-6 mb-4 bg-slate-900/75 px-6 py-5 backdrop-blur @2xl:-mx-12 @2xl:px-12 flex justify-between items-center">
                   <h2 className="text-xl font-bold uppercase tracking-widest text-slate-200">Certifications</h2>
-                  <div className={`@2xl:hidden transition-opacity duration-300 ${hasScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                  <div className="@2xl:hidden">
                     <MobileMenuButton isOpen={isMobileMenuOpen && activeSection === 'certifications'} toggle={() => { setIsMobileMenuOpen(!isMobileMenuOpen); setActiveSection('certifications'); }} />
                     <MobileMenuDropdown isOpen={isMobileMenuOpen && activeSection === 'certifications'} closeMenu={() => setIsMobileMenuOpen(false)} activeSection={activeSection} navItems={navItems} />
                   </div>

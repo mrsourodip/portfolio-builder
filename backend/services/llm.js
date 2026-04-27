@@ -24,7 +24,7 @@ Extract the following information:
    - description (ARRAY of strings) - provide 3-4 bullet points per experience. Each bullet should be a concise, impactful statement. Use action verbs and include metrics where possible.
 7. certifications (array of objects) - if present, extract certifications. Each must have: id, title, issuer, date. Exclude this if nothing is found.
 8. projects (array of objects) - id, title, description, tech (string array), and link (string). 
-9. contact (object) - email, linkedin, github.
+9. contact (object) - email, linkedin, github, portfolio (extract personal website or portfolio links here).
 
 IMPORTANT PROJECT RULES:
 - HIGHEST PRIORITY: If the input contains raw HTML (from DOCX) or an "EXTRACTED_HYPERLINKS" section (from PDF), use these exact URLs for projects and contact info.
@@ -77,7 +77,8 @@ OUTPUT THE RAW DATA IN THIS EXACT JSON SCHEMA (do NOT output markdown blocks, ju
   "contact": {
     "email": "",
     "linkedin": "",
-    "github": ""
+    "github": "",
+    "portfolio": ""
   }
 }
 `;

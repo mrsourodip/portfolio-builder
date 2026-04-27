@@ -491,6 +491,7 @@ export default function EditorSidebar() {
           <input type="email" value={data.contact?.email || ''} onChange={(e) => updateContact('email', e.target.value)} placeholder="Email" className={inputClass} />
           <input type="text" value={data.contact?.github || ''} onChange={(e) => updateContact('github', e.target.value)} placeholder="GitHub URL" className={inputClass} />
           <input type="text" value={data.contact?.linkedin || ''} onChange={(e) => updateContact('linkedin', e.target.value)} placeholder="LinkedIn URL" className={inputClass} />
+          <input type="text" value={data.contact?.portfolio || ''} onChange={(e) => updateContact('portfolio', e.target.value)} placeholder="Portfolio / Website URL" className={inputClass} />
         </section>
 
         {/* Skills */}
