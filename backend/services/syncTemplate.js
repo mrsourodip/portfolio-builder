@@ -57,10 +57,8 @@ async function getTransformedAppCode() {
 
     // 5. Inject loading guard, dynamic title, and dynamic favicon before the main return
     code = code.replace(
-      /\}, \[\]\);\s*\n\s*return \(/,
-      `}, []);
-
-  useEffect(() => {
+      /(\s*)(return \(\s*<div\s+className="@container bg-slate-900)/,
+      `$1  useEffect(() => {
     if (!data.name) return;
     
     // 1. Set Page Title
@@ -111,7 +109,7 @@ async function getTransformedAppCode() {
     return <div className="h-screen w-screen bg-slate-900 flex items-center justify-center text-slate-400">Loading Portfolio...</div>;
   }
 
-  return (`
+$2`
     );
 
     // 6. Fix resume URL & Naming

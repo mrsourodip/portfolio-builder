@@ -118,7 +118,7 @@ export default function App() {
     return () => sections.forEach((section) => observer.unobserve(section));
   }, [data]);
 
-  useEffect(() => {
+    useEffect(() => {
     if (!data.name) return;
     
     // 1. Set Page Title
@@ -169,7 +169,7 @@ export default function App() {
     return <div className="h-screen w-screen bg-slate-900 flex items-center justify-center text-slate-400">Loading Portfolio...</div>;
   }
 
-  return (
+return (
     <div
       className="@container bg-slate-900 min-h-full text-slate-400 font-sans leading-relaxed selection:bg-teal-300 selection:text-teal-900 relative w-full h-full"
       onMouseMove={handleMouseMove}
@@ -188,7 +188,7 @@ export default function App() {
         <div className="@2xl:flex @2xl:justify-between @2xl:gap-4">
 
           {/* Left Column - Sticky */}
-          <header className="@2xl:sticky @2xl:top-0 @2xl:flex @2xl:max-h-screen @2xl:w-1/2 @2xl:flex-col @2xl:justify-between @2xl:py-24 pb-12 @2xl:pb-24">
+          <header className="@2xl:sticky @2xl:top-0 @2xl:flex @2xl:max-h-screen @2xl:overflow-y-auto @2xl:w-1/2 @2xl:flex-col @2xl:justify-between @2xl:py-24 pb-12 @2xl:pb-24 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <div>
               <h1 className="text-4xl font-bold tracking-tight text-slate-200 @2xl:text-5xl break-words">
                 {data.name || "Your Name"}
@@ -419,7 +419,7 @@ export default function App() {
                       <div className="group relative grid gap-4 pb-1 transition-all @2xl:hover:!opacity-100 @2xl:group-hover/list:opacity-50">
                         <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none @2xl:-inset-x-6 @2xl:block @2xl:group-hover:bg-slate-800/50 @2xl:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] @2xl:group-hover:drop-shadow-lg"></div>
                         <div className="z-10 flex flex-col sm:flex-row sm:items-baseline gap-2">
-                          {cert.date && (
+                          {cert.date && String(cert.date).toLowerCase() !== 'undefined' && (
                             <header className="z-10 mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500 sm:w-1/4 shrink-0 transition-colors">
                               {cert.date}
                             </header>
